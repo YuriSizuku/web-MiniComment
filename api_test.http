@@ -1,0 +1,30 @@
+@url = http://localhost:3003
+GET {{url}}/api/captcha
+content-type: application/json
+
+###
+GET {{url}}/api/comment/count
+content-type: application/json
+
+###
+GET {{url}}/api/comment/get?article_title=Comments
+content-type: application/json
+
+###
+GET {{url}}/api/comment/get?article_title=Comments&skip=1&limit=2
+content-type: application/json
+
+###
+GET {{url}}/api/comment/refidx?ref=5fa1a3f27e562838a8918af1
+content-type: application/json
+
+###
+POST  {{url}}/api/comment/submit HTTP/1.1
+content-type: application/json
+
+{
+    "article_title": "Comments",
+    "ref": "5fa1a3f27e562838a8918af1",
+    "name": "test",
+    "content": "this is a test for comment6"
+}

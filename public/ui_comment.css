@@ -1,0 +1,125 @@
+.comment_block {
+    margin-top: 1.5em;
+    border-radius: 1em; 
+    padding: 0.5em 1em 1em 1em;
+    background: bisque;
+    /*animation: fadein 0.1s;*/
+}
+
+@keyframes fadein{
+    from {scale: 0.5;}
+    to {scale:1.0;}
+}
+
+.comment_upview{
+    display: inline-block;
+}
+
+.comment_idx{
+    display: inline-block;
+    color: cornflowerblue;
+    font-weight: 600;
+}
+
+.comment_name{
+    display: inline-block;
+    color: deeppink;
+    font-weight: 600;
+}
+
+.comment_date{
+    display: inline-block;
+    margin-left: 0.5em;
+    color: darkviolet;
+}
+
+.ref_view{
+    display: inline-block;
+    color: royalblue;
+    font-weight: 600;
+}  
+
+.ref_view:hover{
+    color: deepskyblue;
+}  
+
+svg {
+    margin: -0.4em;
+}
+svg:hover{
+    background: deepskyblue;
+}
+
+.reply_button{
+    position: absolute;
+    margin-left: 1em;
+}
+
+.page_num {
+    padding-left: 0.3em;
+    padding-right: 0.3em;
+    display: inline-block;
+    border: 1px solid;
+    border-radius: 0.3em;
+    margin-right: 0.2em;
+    background: antiquewhite;
+}
+
+.page_num:hover {
+    background: deepskyblue;
+}
+
+.page_goto {
+    padding-top: 0.3em;
+    width: 2em;
+    height: 1.8em;
+    border: 1px solid;
+    border-radius: 0.3em;
+    background: coral;
+}
+
+.page_summary {
+    padding-left: 0.3em;
+    padding-right: 0.3em;
+    border: 1px solid;
+    border-radius: 0.3em;
+    display: inline-block;
+    background: aquamarine;
+}
+
+input[type="button"]{
+    border: 1px solid;
+    border-radius: 0.3em;
+    background: #00bcd4;
+}
+
+input[type="button"]:hover {
+    background: #16e5ff;
+}
+
+input[type="submit"]{
+    border: 1px solid;
+    border-radius: 0.3em;
+    background: deepskyblue;
+}
+
+input[type="submit"]:hover {
+    background: #16e5ff;
+}
+
+.comment_submit_form {
+    background: antiquewhite;
+    box-shadow:1px 1px 2px 2px;
+    border-radius: 0.3em; 
+    padding: 10px 10px 10px 10px
+}
+
+.comment_submit_upview {
+    padding-left:2.5%;
+}
+
+.comment_submit_downview {
+    width:95%;margin-left: 2.5%; 
+    margin-top: 0.5em; 
+    resize:none
+}

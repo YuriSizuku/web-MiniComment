@@ -1,0 +1,26 @@
+{
+  "name": "minicomment",
+  "version": "0.7.0",
+  "description": "A Mini Comment web application, using Nodejs, Vue.js, Mongodb",
+  "main": "server_comment.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1", 
+	"start": "node server_comment.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/YuriSizuku/MiniComment.git"
+  },
+  "author": "devseed",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/YuriSizuku/MiniComment/issues"
+  },
+  "homepage": "https://github.com/YuriSizuku/MiniComment#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.10.12",
+    "svg-captcha": "^1.4.0"
+  }
+}
