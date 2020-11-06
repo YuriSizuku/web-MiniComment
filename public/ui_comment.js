@@ -228,7 +228,11 @@ var app_comment_submit = new Vue({
           alert("Comment too long!");
           return;
         }
-        if(await submit_comment(article_title, this.ref!="" ? this.ref: undefined, this.name, this.email!="" ? this.email:undefined, this.content, this.captcha_code, this.captcha_hash)){
+        let captcha_code = this.captcha_code;
+        let captcha_hash = this.captcha_hash;
+        this.captcha_code = "";
+        this.captcha_hash = "";
+        if(await submit_comment(article_title, this.ref!="" ? this.ref: undefined, this.name, this.email!="" ? this.email:undefined, this.content, captcha_code, captcha_hash)){
           app_comment_block.init_comment();
           this.content = "";
           this.reset_ref();
