@@ -1,0 +1,49 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script src="https://cdn.jsdelivr.net/npm/vue" type="text/javascript"></script>
+<script src="http://libs.baidu.com/jquery/1.9.0/jquery.js" type="text/javascript"></script>
+<link rel="stylesheet" type="text/css" href="./ui_comment.css" />
+
+<div id="comment_view">
+    <div class="comment_block" :id="'idx'+comment.idx" v-for="(comment, i) in comments_view">
+        <div class="comment_upview">  
+            <div class="comment_idx"> #{{comment.idx}}|</div> 
+            <div class="comment_name">{{comment.name}}</div>
+            <div v-show="refmap[comment.ref]!=undefined" class="ref_view" @click="goto_ref(refmap[comment.ref])">"ref #{{refmap[comment.ref]}}"</div>   
+            <div class="comment_date"> 
+            {{ new Date(new Date(comment.date).getTime() - new Date(comment.date).getTimezoneOffset()*60*1000).toLocaleString('zh', { hour12: false, timeZone: 'UTC'})}}</div>
+            <input class="reply_button" type="button" value="reply" @click="set_ref(comment._id, comment.idx)">
+        </div>
+        <p>{{comment.content}}</p>
+    </div>
+
+    <div id="page_num_view">
+       <p class="page_num"  
+        :style='val==cur_page ? "background: deepskyblue" : "" ' 
+        v-for="(val, i) in page_view" 
+        v-show="show_page_button(i)"
+        @click="select_page(i)" > {{val}} </p>
+       <input type="text" class="page_goto" 
+         oninput="value=value.replace(/[^\d]/g,'')" v-model="cur_page" 
+         @keyup.enter="goto_page(cur_page)"/>
+       <p class="page_summary">{{comments.length}} items, in {{page_count}} pages</p>
+       <a href="https://github.com/YuriSizuku/MiniComment" target="_blank" class="comment_idx">Mini Comment by devseed</a>
+    </div>
+</div>
+
+<div id="submit_view" >
+    <form @submit="submit_comment" class="comment_submit_form">
+        <div class="comment_submit_upview comment_name">
+        name: <input type="text" v-model="name"/> 
+        *email: <input type="email" v-model="email" placeholder="email will not display"/>
+        <div v-html="captcha_data" @click="get_captcha" style="display: inline-block;"></div>
+        <input type="text" v-model="captcha_code" style="width: 2.8em;"/>
+        <input type="submit" value="submit"/> 
+        <div v-show="refstr!=''" class="ref_view"> 
+            replyto: {{refstr}} 
+            <input type="button" value="reset" @click="reset_ref">
+        </div>
+        </div>
+        <textarea v-model="content" rows="8" class="comment_submit_downview"></textarea>
+    </form>
+</div>
+<script src="./ui_comment.js"></script>

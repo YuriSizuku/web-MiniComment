@@ -4,12 +4,14 @@
 */
 
 // the API_HOST and article_title is in html meta
-const API_HOST= $("meta[API_HOST]").attr('API_HOST');
+const API_HOST= $("meta[API_HOST]").length > 0 ? $("meta[API_HOST]").attr('API_HOST') : "";
 var article_title = $("meta[article_title]").attr('article_title');
 
 async function get_comment_count() {
   return new Promise(resolve =>{
-    $.ajax(API_HOST + "/api/comment/count", {dataType:'json'})
+    $.ajax(API_HOST + "/api/comment/count", {
+      dataType:'json', 
+      data: {article_title:article_title}})
     .done(function (data){return resolve(data.count);})})
 }
 
@@ -54,11 +56,11 @@ async function submit_comment(article_title, ref, name, email, content, captcha_
 var app_comment_block = new Vue({
   el: '#comment_view', 
   data: {
-    comment_view_limit: parseInt($("meta[comment_view_limit]").attr('comment_view_limit')),
+    comment_view_limit: $("meta[comment_view_limit]").length > 0 ? parseInt($("meta[comment_view_limit]").attr('comment_view_limit')): 10,
     comments_count : 0,
     comments: [],
     comments_view: null,
-    page_limit: parseInt($("meta[page_limit]").attr('page_limit')),
+    page_limit: $("meta[page_limit]").length > 0 ? parseInt($("meta[page_limit]").attr('page_limit')): 10,
     page_count : 0,
     page_view : [], // ['«', 1, 2, 3, '»'],
     cur_page : 1,
@@ -87,6 +89,7 @@ var app_comment_block = new Vue({
         if (this.comments[i]==undefined){  
           if (skip+limit > this.comments_count) limit=this.comments_count-skip;
           var _comments = await get_comments(article_title, i, i-skip + limit);
+          if(_comments==null || _comments==undefined|| _comments.length==0) break;
           for(j=i;j<skip+limit;j++) {
             this.comments[j] = _comments[j-i];
             this.refmap[this.comments[j]._id] =  this.comments[j].idx;

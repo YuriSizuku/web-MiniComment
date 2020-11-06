@@ -17,8 +17,8 @@ const commentSchema = new mongoose.Schema({
 })
 const Comment = new mongoose.model("comments", commentSchema);
 
-async function getCommentCount(){
-  return await Comment.find({}).countDocuments();
+async function getCommentCount(article_title){
+  return await Comment.find({"article_title":article_title}).countDocuments();
 }
 
 async function getComment(article_title, skip, limit){

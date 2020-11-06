@@ -5,6 +5,8 @@
   GET /api/captcha/
      return {data, hash};
   GET /api/comment/
+      article_title: str
+      return {count}
   GET /api/comment/count
       return {comment_count:}
   GET /api/comment/get
@@ -38,8 +40,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 (function loop(interval){
-  console.log("SALT changed!");
-  var SALT = svgCaptcha.randomText(4);
+  //console.log("SALT changed!");
+  SALT = svgCaptcha.randomText(4);
   setTimeout( ()=>{loop(interval)}, interval)
 })(600000);
 
@@ -73,7 +75,7 @@ app.get('/api/captcha', corsMid, async (req, res) => {
 
 app.get('/api/comment/count', corsMid, async (req, res) => {
   console.log(req.ip, '/api/comment/count', req.query);
-  count = await getCommentCount();
+  count = await getCommentCount(req.query.article_title);
   res.json({count:count})
  })
 
