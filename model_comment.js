@@ -40,7 +40,7 @@ async function submitComment(article_title, ref, name, email, content){
     article_title: article_title,
     date: new Date(), 
     ref: ref, 
-    idx: idx,
+    idx: idx+1,
     name: name,
     content: content,
     _email: email, })

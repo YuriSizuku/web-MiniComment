@@ -44,6 +44,7 @@ async function submit_comment(article_title, ref, name, email, content, captcha_
   })
   .done(function (data){
     //console.log(data);
+    alert("submit successfully!", data);
     return resolve(true);
     })
   .fail(function (xhr, status) {
@@ -151,7 +152,7 @@ var app_comment_block = new Vue({
       //console.log(page_idx);
       page_idx = parseInt(page_idx);
       page_idx < 1 ? 1 : page_idx;
-      page_idx > this.page_count ? this.page_count : page_idx;
+      page_idx = page_idx > this.page_count ? this.page_count : page_idx;
       //if (page_idx == this.selected_page) return;
       if(page_idx < this.page_view[1] || page_idx > this.page_view[this.page_view.length-2]){
         for(i=1;i<this.page_view.length-1;i++) 

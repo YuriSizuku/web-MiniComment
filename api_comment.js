@@ -1,5 +1,5 @@
 /*
-  A Mini Comment web application server part with nodejs,
+  A Mini Comment web application api server part with nodejs,
   made by devseed (https://github.com/YuriSizuku/MiniComment)
 
   GET /api/captcha/
@@ -26,18 +26,15 @@
     capcha_code: str
     capcha_hash: str
 */
-const PORT = 3003;
 
 const express = require('express');
+
 const crypto = require('crypto');
 const svgCaptcha = require('svg-captcha');
-var bodyParser = require('body-parser');  // must use body-paser to get post payload
 const {Comment, getComment, submitComment, getCommentCount} = require('./model_comment'); //datebase
 
-const app = express();
+const router = express.Router();
 var SALT = svgCaptcha.randomText(4);
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
 
 (function loop(interval){
   //console.log("SALT changed!");
@@ -66,21 +63,24 @@ const authCaptchaMid = async(req, res, next) => {
   res.end();
 }
 
-app.get('/api/captcha', corsMid, async (req, res) => {
-  console.log(req.ip, '/api/captcha', req.query);
+const logMid = async(req, res, next) =>{
+  console.log(req.ip, req.header('x-forwarded-for'),
+    req.path, req.query, req.body);
+  next();
+}
+
+router.get('/api/captcha', logMid, corsMid, async (req, res) => {
   let cap = svgCaptcha.create({height:30, width:90, fontSize:30});
   let hash = crypto.createHash('sha1').update(cap.text.toLowerCase() + SALT).digest('hex');
   res.json({data:cap.data, hash:hash});
  })
 
-app.get('/api/comment/count', corsMid, async (req, res) => {
-  console.log(req.ip, '/api/comment/count', req.query);
+router.get('/api/comment/count', logMid, corsMid, async (req, res) => {
   count = await getCommentCount(req.query.article_title);
-  res.json({count:count})
+  res.json({count:count});
  })
 
-app.get('/api/comment/get', corsMid, async (req, res) => {
-  console.log(req.ip, '/api/comment/get', req.query);
+router.get('/api/comment/get', logMid, corsMid, async (req, res) => {
   var {article_title, limit, skip} = req.query;
   if (article_title==undefined)
   {
@@ -94,18 +94,17 @@ app.get('/api/comment/get', corsMid, async (req, res) => {
   if(limit==undefined || limit == NaN) limit = 10;
   if(skip==undefined || skip == NaN) skip = 0;  
   comments = await getComment(article_title, skip, limit);
-  res.json(comments)
+  res.json(comments);
  })
 
-app.get("/api/comment/refidx", corsMid, async (req, res) => {
-  console.log(req.ip, '/api/comment/refidx', req.query);
+router.get("/api/comment/refidx", logMid, corsMid, async (req, res) => {
   var {ref} = req.query;
   var comment = await Comment.findById(ref);
   res.json({refidx: comment.idx});
+  return;
 })
 
-app.post('/api/comment/submit', corsMid, authCaptchaMid, async (req, res) => {
-  console.log(req.ip, '/api/comment/submit', req.body);
+router.post('/api/comment/submit', logMid, corsMid, authCaptchaMid, async (req, res) => {
   var {article_title, ref, name, email, content} = req.body;
   if(article_title==undefined || name==undefined || content==undefined){
     res.writeHead(400, {message:"Invalid argument"})
@@ -150,8 +149,4 @@ app.post('/api/comment/submit', corsMid, authCaptchaMid, async (req, res) => {
   }
 })
 
-var server = app.listen(PORT, function () {
-  var host = server.address().address;
-  var port = server.address().port;
-  console.log("comment server at http://%s:%s", host, port);
-})
+module.exports = {api_comment_router: router};

@@ -28,3 +28,6 @@ content-type: application/json
     "name": "test",
     "content": "this is a test for comment6"
 }
+
+###
+GET {{url}}/api2?a=1&b=2  HTTP/1.1

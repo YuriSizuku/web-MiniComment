@@ -1,4 +1,5 @@
 # MiniComment
+
 A Mini Comment web application, using Nodejs, Vue.js,  Mongodb
 
 View  in my blog,  [Yurisizuku](https://blog.yuris.ml/comments/)
@@ -7,9 +8,9 @@ View  in my blog,  [Yurisizuku](https://blog.yuris.ml/comments/)
 
 ## client
 
-in  `/public`,  `ui_comment.html `, `ui_comment.js`, `ui_comment.css`
+in  `/public`,  `ui_comment.html`, `ui_comment.js`, `ui_comment.css`
 
-The comment web UI can 
+The comment web UI can  
 
 - fetch the comments by ajax and render the comments in several pages
 - go forward, backward, and jump to arbitary page
@@ -23,9 +24,7 @@ It has some configs as bellow:
 <meta comment_view_limit="10" page_limit="10"/>
 ```
 
-
-
-usage example for` hexo (butterfly theme)`:
+usage example for`hexo(butterfly theme)`:
 
 1. In `hook_style.js`, use  jQuery  `load` to import the html into the comment page, something like:
 
@@ -57,9 +56,7 @@ usage example for` hexo (butterfly theme)`:
    }
    ```
 
-   
-
-2.  In `_config.butterfly.yml`,   import the `Vue` and `hook_style.js`
+2. In `_config.butterfly.yml`,   import the `Vue` and `hook_style.js`
 
 ```yml
 # _config.butterfly.yml 
@@ -71,7 +68,7 @@ inject:
   - <script src="https://cdn.jsdelivr.net/npm/vue"></script>
 ```
 
-3. put the `ui_comment.xhtml `, `ui_comment.js`, `ui_comment.css` into `<hexo>/source/hook/` directly (hexo generate html in wrong format, so rename it to xhtml). Maybe need to edit `<meta api_host="YourHostName or empty"/>` and delete `<meta article_title="xxx">`, because it is set by the `hook_style.js`. Also change the path of js and css. 
+3.put the `ui_comment.xhtml`, `ui_comment.js`, `ui_comment.css` into `<hexo>/source/hook/` directly (hexo generate html in wrong format, so rename it to xhtml). Maybe need to edit `<meta api_host="YourHostName or empty"/>` and delete `<meta article_title="xxx">`, because it is set by the `hook_style.js`. Also change the path of js and css.
 
 ```html
 <meta api_host="YourHostName or empty"/> 
@@ -81,7 +78,9 @@ inject:
 
 ## server
 
-`server_comment.js`  parse the api for get/submit the comment.
+`server.js`  main server of this app
+
+`api_comment.js` parse the api for get/submit the comment.
 
 `model_comment.js`  the defination of the comments model and some functions to manipulate the database
 
@@ -89,4 +88,4 @@ inject:
 
 1. in this project dir, use `npm install`
 2. create a file `./secret/SECRET_DB.TXT` and put a  string like `mongodb://username:password@host:port/database?authSource=admin` for connecting to your mongodb database.
-3.  `npm run start` or `pm2 start server_comment.js` to run it, have fun~ 
+3. `npm run start` or `pm2 start server_comment.js` to run it, have fun ~
