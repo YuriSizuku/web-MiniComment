@@ -18,11 +18,12 @@ const commentSchema = new mongoose.Schema({
 const Comment = new mongoose.model("comments", commentSchema);
 
 async function getCommentCount(article_title){
-  return await Comment.find({"article_title":article_title}).countDocuments();
+  return await Comment.find({"article_title":article_title, _hide:false})
+                      .countDocuments();
 }
 
 async function getComment(article_title, skip, limit){
-  var comments = await Comment.find({article_title:article_title},
+  var comments = await Comment.find({article_title:article_title, _hide:false},
                         {_email:0, _hide:0, __v:0})
                         .skip(skip)
                         .limit(limit)
