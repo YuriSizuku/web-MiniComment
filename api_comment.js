@@ -64,8 +64,8 @@ const authCaptchaMid = async(req, res, next) => {
 }
 
 const logMid = async(req, res, next) =>{
-  console.log(req.ip, req.header('x-forwarded-for'),
-    req.path, req.query, req.body);
+  let time = new Date(new Date().getTime() - new Date().getTimezoneOffset()*60*1000).toLocaleString('zh', { hour12: false, timeZone: 'UTC'});
+  console.log(time, req.header('x-forwarded-for'), req.path, req.query, req.body);
   next();
 }
 
@@ -116,7 +116,7 @@ router.post('/api/comment/submit', logMid, corsMid, authCaptchaMid, async (req, 
     res.end()
     return;
   }
-  if(content.length  >= 1024){
+  if(content.length  >= 10000){
     res.writeHead(400, {message:"Invalid argument, content too long!"})
     res.end()
     return;

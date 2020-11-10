@@ -2,7 +2,7 @@
     margin-top: 1.5em;
     border-radius: 1em; 
     padding: 0.5em 1em 1em 1em;
-    background: bisque;
+    background: aliceblue;
     /*animation: fadein 0.1s;*/
 }
 
@@ -23,7 +23,7 @@
 
 .comment_name{
     display: inline-block;
-    color: deeppink;
+    color: #03a9f4;
     font-weight: 600;
 }
 
@@ -31,6 +31,52 @@
     display: inline-block;
     margin-left: 0.5em;
     color: darkviolet;
+}
+
+.hljs-ln-numbers { /* for block of numbers */
+    text-align: center;
+    color: #CCC;
+    border-width: 0;
+    border-right: 1px solid #CCC;
+    vertical-align: top;
+}
+
+.hljs-ln-code { /* for block of code */
+    border-style:None;
+    border-width: 0;
+}
+
+.hljs-ln {
+    margin-left: -10px;
+    border-collapse: collapse;
+}
+
+.hljs-ln td {
+    padding-left: 10px;
+    padding-right: 5px;
+}
+
+td.hljs-ln-code { /*reserve indentation */
+	white-space: pre-wrap;
+}
+
+pre {
+    background: #d7faf7;
+    padding: 10px 10px 10px 10px;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+th {
+    border-style: solid;
+    border-width: 1px;
+}
+
+td {
+    border-style: solid;
+    border-width: 1px;
 }
 
 .ref_view{
@@ -50,9 +96,10 @@ svg:hover{
     background: deepskyblue;
 }
 
-.reply_button{
-    position: absolute;
-    margin-left: 1em;
+.raw_checkbox{
+    border: 1px solid;
+    border-radius: 0.3em;
+    display: inline-block;
 }
 
 .page_num {
@@ -72,7 +119,7 @@ svg:hover{
 .page_goto {
     padding-top: 0.3em;
     width: 2em;
-    height: 1.8em;
+    height: 1.73em;
     border: 1px solid;
     border-radius: 0.3em;
     background: coral;
@@ -87,20 +134,36 @@ svg:hover{
     background: aquamarine;
 }
 
+#md_button{
+    font-size: 1em;
+}
+
+#raw_button{
+    font-size: 1em;
+    color: purple;
+}
+
 input[type="button"]{
     border: 1px solid;
     border-radius: 0.3em;
     background: #00bcd4;
+    border-color: #00bcd4;
+    color: white;
+    outline: none;
 }
 
 input[type="button"]:hover {
     background: #16e5ff;
+    border-color: #16e5ff;
 }
 
 input[type="submit"]{
     border: 1px solid;
     border-radius: 0.3em;
     background: deepskyblue;
+    border-color: #00bcd4;
+    color: white;
+    outline: none;
 }
 
 input[type="submit"]:hover {
@@ -108,7 +171,7 @@ input[type="submit"]:hover {
 }
 
 .comment_submit_form {
-    background: antiquewhite;
+    background: azure;
     box-shadow:1px 1px 2px 2px;
     border-radius: 0.3em; 
     padding: 10px 10px 10px 10px

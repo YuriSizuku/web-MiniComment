@@ -2,7 +2,8 @@
 
 A Mini Comment web application, using Nodejs, Vue.js,  Mongodb
 
-View  in my blog,  [Yurisizuku](https://blog.yuris.ml/comments/)
+View in my blog,  [Yurisizuku](https://blog.yuris.ml/comments/)  
+Now in v0.8, mardown format is supported by marked.js!
 
 ![minicomment_v0.7](screentshot/minicomment_v0.7.png)
 
@@ -71,7 +72,7 @@ inject:
 3.put the `ui_comment.xhtml`, `ui_comment.js`, `ui_comment.css` into `<hexo>/source/hook/` directly (hexo generate html in wrong format, so rename it to xhtml). Maybe need to edit `<meta api_host="YourHostName or empty"/>` and delete `<meta article_title="xxx">`, because it is set by the `hook_style.js`. Also change the path of js and css.
 
 ```html
-<meta api_host="YourHostName or empty"/> 
+<meta api_host="YourHostName or empty"/>
 <link rel="stylesheet" type="text/css" href="/hook/ui_comment.css" />
 <script src="/hook/ui_comment.js"></script>
 ```
@@ -88,4 +89,4 @@ inject:
 
 1. in this project dir, use `npm install`
 2. create a file `./secret/SECRET_DB.TXT` and put a  string like `mongodb://username:password@host:port/database?authSource=admin` for connecting to your mongodb database.
-3. `npm run start` or `pm2 start server_comment.js` to run it, have fun ~
+3. `npm run start` or `pm2 start server.js` to run it, have fun ~

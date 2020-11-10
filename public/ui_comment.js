@@ -7,6 +7,23 @@
 const API_HOST= $("meta[API_HOST]").length > 0 ? $("meta[API_HOST]").attr('API_HOST') : "";
 var article_title = $("meta[article_title]").attr('article_title');
 
+(function init_marked(){
+  var rendererMD = new marked.Renderer();
+  marked.setOptions({
+    renderer: rendererMD,
+    gfm: true,
+    tables: true,
+    breaks: false,
+    pedantic: false,
+    sanitize: false,
+    smartLists: true,
+    smartypants: true,
+    highlight: function (code) { //the highlight style is depending on css
+      return  hljs.lineNumbersValue(hljs.highlightAuto(code).value);
+    }
+  });
+})()// marked
+
 async function get_comment_count() {
   return new Promise(resolve =>{
     $.ajax(API_HOST + "/api/comment/count", {
@@ -65,6 +82,7 @@ var app_comment_block = new Vue({
     page_count : 0,
     page_view : [], // ['«', 1, 2, 3, '»'],
     cur_page : 1,
+    text_type: "md",
     refmap: {}
   },
   mounted: async function(){
@@ -83,7 +101,7 @@ var app_comment_block = new Vue({
       }
       this.page_view.push('»');
       this.comments = new Array(this.comments_count);
-      this.update_comment(0, this.comment_view_limit)
+      this.update_comment(0, this.comment_view_limit);
     }, 
     fetch_comments: async function(skip, limit){ // check and fetch the comment
       for(i=skip;i<skip+limit;i++){
@@ -113,6 +131,7 @@ var app_comment_block = new Vue({
             this.refmap[ref] = res.refidx;
         }
       }
+      this.change_text_type(this.text_type);
       this.$forceUpdate();
     }, 
     show_page_button: function(i){
@@ -197,7 +216,22 @@ var app_comment_block = new Vue({
       app_comment_submit.ref=ref;
       app_comment_submit.refstr = "#" + refidx;
       window.scrollTo(0, document.body.scrollHeight); //jump to the bottom
-    }
+    }, 
+    change_text_type: function(text_type){
+      this.text_type = text_type;
+      if(this.text_type == 'md'){
+        this.render_md();
+        return;
+      }
+    }, 
+    render_md: function(){
+      if(this.comments_view==null || this.comments_view==undefined) return;
+      for(i=0;i<this.comments_view.length;i++){
+        this.comments_view[i].html = marked(this.comments_view[i].content);
+        //console.log(this.comments_view[i].html);
+      }
+      this.$forceUpdate();
+    } 
   }
 })
 
@@ -222,10 +256,6 @@ var app_comment_submit = new Vue({
         e.preventDefault(); // do not refresh when submit
         if(this.name == "" || this.content == ""){
           alert("Name and Comment can not be empty!");
-          return;
-        }
-        if(this.content.length >= 1024){
-          alert("Comment too long!");
           return;
         }
         let captcha_code = this.captcha_code;
