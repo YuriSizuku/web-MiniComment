@@ -3,13 +3,15 @@
 A Mini Comment web application, using Nodejs, Vue.js,  Mongodb
 
 View in my blog,  [Yurisizuku](https://blog.yuris.ml/comments/)  
-Now in v0.8, mardown format is supported by marked.js!
 
-![minicomment_v0.7](screentshot/minicomment_v0.7.png)
+Now in v0.8, mardown format is supported!
+
+![minicomment_v0.8](screenshot/minicomment_v0.8_markdown.png)
+![minicomment_v0.7](screenshot/minicomment_v0.7.png)
 
 ## client
 
-in  `/public`,  `ui_comment.html`, `ui_comment.js`, `ui_comment.css`
+in  `/public`,  `ui_comment.xhtml`, `ui_comment.js`, `ui_comment.css`
 
 The comment web UI can  
 
@@ -25,7 +27,28 @@ It has some configs as bellow:
 <meta comment_view_limit="10" page_limit="10"/>
 ```
 
-usage example for`hexo(butterfly theme)`:
+### use `MiniComments` in any html page
+
+1. input the `jquery.js`, `vue.js`, `marked.js`, `highlight.js`, `highlightjs-line-numbers.js` libraries by `<script src=""></scrpt>`
+
+2. use jquery load `ui_comment.xhtml` into where you want to add comment view, see `/public/ui_comment_example.html` in detail. 
+
+```html
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta article_title="Comments" api_host="http://localhost:3003"/>
+<meta comment_view_limit="10" page_limit="10"/>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
+<script src="https://cdn.jsdelivr.net/npm/marked@1.2.3/marked.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.1.2/build/highlight.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.1.2/build/styles/vs.min.css"/>
+<script src="https://cdn.jsdelivr.net/npm/highlightjs-line-numbers.js@2.8.0/dist/highlightjs-line-numbers.min.js"></script>
+<div id="mini_comment"></div>
+<script>$("#mini_comment").load("/ui_comment.xhtml");</script>
+```
+
+### use `MiniComments` in hexo(butterfly theme) 
 
 1. In `hook_style.js`, use  jQuery  `load` to import the html into the comment page, something like:
 
@@ -63,13 +86,16 @@ usage example for`hexo(butterfly theme)`:
 # _config.butterfly.yml 
 inject:
  head:
-   - <link rel="stylesheet" href="/hook/hook_style.css">
+  - <link rel="stylesheet" href="/hook/hook_style.css">
  bottom:
-  - <script src="/hook/hook_style.js"></script>
-  - <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+  - <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
+  - <script src="https://cdn.jsdelivr.net/npm/marked@1.2.3/marked.min.js"></script>
+  - <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.1.2/build/highlight.js"></script>
+  - <script src="https://cdn.jsdelivr.net/npm/highlightjs-line-numbers.js@2.8.0/dist/highlightjs-line-numbers.min.js"></script>
 ```
 
 3.put the `ui_comment.xhtml`, `ui_comment.js`, `ui_comment.css` into `<hexo>/source/hook/` directly (hexo generate html in wrong format, so rename it to xhtml). Maybe need to edit `<meta api_host="YourHostName or empty"/>` and delete `<meta article_title="xxx">`, because it is set by the `hook_style.js`. Also change the path of js and css.
+**Finally, do not forget to purge the cdn caches to see the changes**
 
 ```html
 <meta api_host="YourHostName or empty"/>

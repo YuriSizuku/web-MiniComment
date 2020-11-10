@@ -7,7 +7,7 @@
 const API_HOST= $("meta[API_HOST]").length > 0 ? $("meta[API_HOST]").attr('API_HOST') : "";
 var article_title = $("meta[article_title]").attr('article_title');
 
-(function init_marked(){
+function init_marked() {
   var rendererMD = new marked.Renderer();
   marked.setOptions({
     renderer: rendererMD,
@@ -18,11 +18,17 @@ var article_title = $("meta[article_title]").attr('article_title');
     sanitize: false,
     smartLists: true,
     smartypants: true,
-    highlight: function (code) { //the highlight style is depending on css
-      return  hljs.lineNumbersValue(hljs.highlightAuto(code).value);
+    highlight: function (code, lang) { //the highlight style is depending on css
+      if(hljs==undefined || hljs==null) return code;
+      let validLang = hljs.getLanguage(lang) ? lang : 'c++';
+      let highlight_code =  hljs.highlight(validLang, code).value;
+      if(hljs.lineNumbersValue==undefined || hljs.lineNumbersValue==null){
+        return highlight_code
+      }
+      return  hljs.lineNumbersValue(highlight_code);
     }
   });
-})()// marked
+}
 
 async function get_comment_count() {
   return new Promise(resolve =>{
@@ -86,7 +92,7 @@ var app_comment_block = new Vue({
     refmap: {}
   },
   mounted: async function(){
-      this.init_comment();
+    this.init_comment();
   },
   methods: {
     init_comment: async function(){
@@ -220,12 +226,14 @@ var app_comment_block = new Vue({
     change_text_type: function(text_type){
       this.text_type = text_type;
       if(this.text_type == 'md'){
+        init_marked();
         this.render_md();
         return;
       }
     }, 
     render_md: function(){
       if(this.comments_view==null || this.comments_view==undefined) return;
+      if(marked==undefined) return;
       for(i=0;i<this.comments_view.length;i++){
         this.comments_view[i].html = marked(this.comments_view[i].content);
         //console.log(this.comments_view[i].html);
