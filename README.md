@@ -2,7 +2,7 @@
 
 A Mini Comment web application, using Nodejs, Vue.js,  Mongodb
 
-View in my blog,  [Yurisizuku](https://blog.yuris.ml/comments/)  
+View in my blog,  [Yurisizuku](https://blog.schnee.moe/comments/)  
 
 Now in v0.8, mardown format is supported!
 
