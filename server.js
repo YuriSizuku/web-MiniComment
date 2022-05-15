@@ -1,9 +1,9 @@
-const PORT = 3003;
-
 const express = require('express');
 var bodyParser = require('body-parser');  // must use body-paser to get post payload
 const {api_comment_router} = require('./api_comment');
 console.log(api_comment_router)
+const args = require('minimist')(process.argv.slice(2));
+var PORT = args.port || 3003;
 
 const app = express();
 app.use(bodyParser.json());

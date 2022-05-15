@@ -1,15 +1,16 @@
 /*
   A Mini Comment web application db config part with mongodb,
-  made by devseed(https://github.com/YuriSizuku/MiniComment)
+  developed by devseed, 
+  (https://github.com/YuriSizuku/MiniComment)
 */
 
 const mongoose = require('mongoose');
 const fs = require('fs');
+const args = require('minimist')(process.argv.slice(2));
+var SECRET_FILE = args.secret_file || "./secret/SECRET_DB.TXT";
+var SECRET_URL = args.secret_url || ""; //'mongodb://username:password@host:port/database?authSource=admin'
 
-var SECRET_FILE = "./secret/SECRET_DB.TXT";
-var SECRET_URL = ""; //'mongodb://username:password@host:port/database?authSource=admin'
-
-if(SECRET_FILE != ""){
+if(SECRET_FILE != "" && SECRET_URL==""){
     var SECRET_URL = fs.readFileSync(SECRET_FILE, encodeing="utf8").replace("\r", "").replace("\n", "");
 }
 

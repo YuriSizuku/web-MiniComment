@@ -4,7 +4,7 @@ A Mini Comment web application, using Nodejs, Vue.js,  Mongodb
 
 View in my blog,  [Yurisizuku](https://blog.schnee.moe/comments/)  
 
-Now in v0.8, mardown format is supported!
+Now in v0.8.1, mardown format is supported!
 
 ![minicomment_v0.8](screenshot/minicomment_v0.8_markdown.png)
 ![minicomment_v0.7](screenshot/minicomment_v0.7.png)
@@ -105,7 +105,13 @@ inject:
 
 ## server
 
-`server.js`  main server of this app
+`server.js`  main server of this app, the command line is as below
+``` bash
+node server.js [options]
+--port 3003 # you can use either secret_file or secret_url
+--secret_file ./secret/SECRET_DB.TXT
+--secret_url mongodb://username:password@host:port/database?authSource=admin
+```
 
 `api_comment.js` parse the api for get/submit the comment.
 
