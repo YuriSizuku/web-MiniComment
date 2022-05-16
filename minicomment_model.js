@@ -1,10 +1,13 @@
 /*
-  A Mini Comment web application db model part with mongoose,
-  made by devseed(https://github.com/YuriSizuku/MiniComment)
+A Mini Comment web application db model part with mongoose,
+  v0.9, developed by devseed(https://github.com/YuriSizuku/MiniComment)
 */
 
-require('./connect_db');
+// load util libraries
 const mongoose = require('mongoose');
+
+// connect to db and set modole
+require('./minicomment_db');
 const commentSchema = new mongoose.Schema({
   article_title: String,
   date: {type:Date, default:new Date()}, //this default is the server start time
@@ -17,6 +20,7 @@ const commentSchema = new mongoose.Schema({
 })
 const Comment = new mongoose.model("comments", commentSchema);
 
+// functions for manipulate db
 async function getCommentCount(article_title){
   return await Comment.find({"article_title":article_title, _hide:false})
                       .countDocuments();

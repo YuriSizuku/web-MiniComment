@@ -1,6 +1,6 @@
 /*
-  A Mini Comment web application ui part rendered by Vue,
-  made by devseed (https://github.com/YuriSizuku/MiniComment)
+A Mini Comment web application ui part rendered by Vue,
+  v0.9, developed by devseed (https://github.com/YuriSizuku/MiniComment)
 */
 
 // the API_HOST and article_title is in html meta

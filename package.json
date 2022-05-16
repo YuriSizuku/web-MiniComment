@@ -1,11 +1,11 @@
 {
   "name": "minicomment",
-  "version": "0.7.0",
+  "version": "0.9.0",
   "description": "A Mini Comment web application, using Nodejs, Vue.js, Mongodb",
-  "main": "server_comment.js",
+  "main": "minicomment_server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "node minicomment_server.js"
   },
   "repository": {
     "type": "git",
