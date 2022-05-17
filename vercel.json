@@ -3,25 +3,32 @@
   "builds": [
     {
       "src": "minicomment_server.js",
-      "use": "@now/node"
+      "use": "@vercel/node"
     },
-	{
-	 "src": "public/*", 
-	 "use": "@vercel/static"
-	},
-	{
-	 "src": "secret/*", 
-	 "use": "@vercel/static"
-	}
-  ],
-  "routes": [
     {
-      "src": "/api/(.*)",
-      "dest": "minicomment_server.js"
+      "src": "public/*", 
+      "use": "@vercel/static"
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/api/(.*)",
+      "destination": "minicomment_server.js"
     }, 
     {
-      "src": "/(.*)",
-      "dest": "/public/$1"
+      "source": "/(.*)",
+      "destination": "/public/$1"
     }
-  ]
+  ],
+  "headers": [
+    {
+      "source": "/api/(.*)",
+      "headers": [
+      { "key": "Access-Control-Allow-Credentials", "value": "true" },
+      { "key": "Access-Control-Allow-Origin", "value": "*" },
+      { "key": "Access-Control-Allow-Methods", "value": "GET,OPTIONS,PATCH,DELETE,POST,PUT" },
+      { "key": "Access-Control-Allow-Headers", "value": "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version" }
+      ]
+    }
+	]
 }
