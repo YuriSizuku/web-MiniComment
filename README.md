@@ -1,5 +1,7 @@
-# MiniComment
-![GitHub package.json version](https://img.shields.io/github/package-json/v/Yurisizuku/MiniComment?color=green)
+# MiniComment  
+
+![npm](https://img.shields.io/npm/v/minicomment?color=green)  
+
 ❄️ A Mini Comment web application, using `Nodejs`, `Vue.js`, `Mongodb`.  
 You can use the raw format or markdown format.  
 
@@ -105,7 +107,8 @@ inject:
 ```  
 
 3. put the `minicomment.xhtml`, `minicomment.js`, `minicomment.css` into `<hexo>/source/hook/` directly (hexo generate html in wrong format, so rename it to xhtml). Maybe need to edit `<meta api_host="YourHostName or empty"/>` and delete `<meta article_title="xxx">`, because it is set by the `hook_style.js`. Also change the path of js and css.
-**Finally, do not forget to purge the cdn caches to see the changes**
+
+**❄️ Finally, do not forget to purge the cdn caches to see the changes**  
 
 ```html
 <meta api_host="YourHostName or empty"/>
@@ -117,7 +120,13 @@ inject:
 
 ### deploy on any node server  
 
-1. in this project dir, use `npm install`
+1. use command below to download, 
+
+``` bash
+git clone https://github.com/YuriSizuku/MiniComment.git && cd MiniComment && npm i
+npm i minicomment && npm i # or just use npm to install pacakge
+```
+
 2. create a file `./secret/SECRET_DB.TXT` and put a  string like `mongodb://username:password@host:port/database?authSource=admin` for connecting to your mongodb database.
 3. `npm run start` or `pm2 start server.js` to run it, have fun ~
 
