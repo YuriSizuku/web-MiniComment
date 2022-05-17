@@ -1,39 +1,41 @@
 # MiniComment
-
-A Mini Comment web application, using Nodejs, Vue.js, Mongodb.  
-You can change the raw format or markdown format.  
-
-This project support for deploying in any node server, as well as vercel. The demo is here [Yurisizuku](https://blog.schnee.moe/comments/).  
+![GitHub package.json version](https://img.shields.io/github/package-json/v/Yurisizuku/MiniComment?color=green)
+❄️ A Mini Comment web application, using `Nodejs`, `Vue.js`, `Mongodb`.  
+You can use the raw format or markdown format.  
 
 ![minicomment_v0.8](screenshot/minicomment_v0.8_markdown.png)
+
+❄️ This project support for deploying in any node server, as well as vercel.  
+The demo is here [Yurisizuku](https://blog.schnee.moe/comments/).  
+
 ![minicomment_v0.7](screenshot/minicomment_v0.7.png)
 
-## MiniComment component
+## 🍀 MiniComment component
 
 ### MiniComment Server
 
-* `minicomment_server.js`,  main server of this app, the command line is as below
-* `minicomment_api.js`, parse the api for get/submit the comment.
-* `minicomment_model.js`  the defination of the comments model and some functions to manipulate the database
-* `minicomment_db.js`, some configs for connet database
+- `minicomment_server.js`,  main server of this app, the command line is as below
+- `minicomment_api.js`, parse the api for get/submit the comment.
+- `minicomment_model.js`  the defination of the comments model and some functions to manipulate the database
+- `minicomment_db.js`, some configs for connet database
 
 ## MiniComment Client
 
-in  `/public`, use  `minicomment.xhtml`, `minicomment.js`, `minicomment.css` to import minicoment client. The comment web UI can
+In  `/public`, use  `minicomment.xhtml`, `minicomment.js`, `minicomment.css` to import minicoment client. The comment web UI can
 
 - fetch the comments by ajax and render the comments in several pages
 - go forward, backward, and jump to arbitary page
 - show the reference (if has) of each comment, and jump to reference
 - submit the comments , with the captcha support
 
-It has some configs as bellow:
+❄️ It has some configs as bellow:
 
 ```html
 <meta article_title="Comments" api_host="http://localhost:3003"/>
 <meta comment_view_limit="10" page_limit="10"/>
 ```
 
-## MiniComment Client Deploy
+## 🍀 MiniComment Client Deploy
 
 ### deploy in any html page
 
@@ -111,7 +113,7 @@ inject:
 <script src="/hook/minicomment.js"></script>
 ```
 
-## MiniComment Server Deploy
+## 🍀 MiniComment Server Deploy
 
 ### deploy on any node server  
 
@@ -123,10 +125,19 @@ Also you can simple run the commad as below, to deploy in any node server.
 
 ``` shell
 node minicomment_server.js [options]
---port 3003 # you can use either secret_file or secret_url
---secret_file ./secret/SECRET_DB.TXT
---secret_url mongodb://username:password@host:port/database?authSource=admin
+--port=3003, or $port # you can use either secret_file or secret_url
+--secret_url, or $secret_url # mongodb://username:password@host:port/database?authSource=admin
+--secret_file=./secret/SECRET_DB.TXT
 ```
 
-### deploy on vercel
-coming soon
+### deploy on vercel  
+
+1. create a project in vercel and fork [this](https://github.com/YuriSizuku/MiniComment) repository.
+2. in vercel config `settings/environment-variables` page, set enviroment, `secret_url=mongodb://username:password@host:port/database?authSource=admin` as yours.
+3. deploy and have fun ~  
+
+## 🍀 history  
+
+- v0.9, refract the code structure, support for vecel, serverless
+- v0.8, add support for markdown  
+- v0.7, initial version, with comment view and submit function  

@@ -1,0 +1,27 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "minicomment_server.js",
+      "use": "@now/node"
+    },
+	{
+	 "src": "public/*", 
+	 "use": "@vercel/static"
+	},
+	{
+	 "src": "secret/*", 
+	 "use": "@vercel/static"
+	}
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "minicomment_server.js"
+    }, 
+    {
+      "src": "/(.*)",
+      "dest": "/public/$1"
+    }
+  ]
+}

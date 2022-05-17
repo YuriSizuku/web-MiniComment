@@ -34,8 +34,15 @@ const svgCaptcha = require('svg-captcha');
 
 // load minicomment model and founctions
 const {Comment, getComment, submitComment, getCommentCount} = require('./minicomment_model'); 
+const dbConnect = require("./minicomment_connect");
 
 // define express middleware
+const dbConnectMid = async(req, res, next) => {
+  await dbConnect();
+  next();
+}
+
+
 const corsMid = async (req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.header('Access-Control-Expose-Headers', '*'); //use all headers
@@ -77,12 +84,12 @@ Router.get('/api/captcha', logMid, corsMid, async (req, res) => {
   res.json({data:cap.data, hash:hash});
  })
 
-Router.get('/api/comment/count', logMid, corsMid, async (req, res) => {
+Router.get('/api/comment/count', dbConnectMid, logMid, corsMid, async (req, res) => {
   count = await getCommentCount(req.query.article_title);
   res.json({count:count});
  })
 
-Router.get('/api/comment/get', logMid, corsMid, async (req, res) => {
+Router.get('/api/comment/get', dbConnectMid, logMid, corsMid, async (req, res) => {
   var {article_title, limit, skip} = req.query;
   if (article_title==undefined)
   {
@@ -99,14 +106,14 @@ Router.get('/api/comment/get', logMid, corsMid, async (req, res) => {
   res.json(comments);
  })
 
-Router.get("/api/comment/refidx", logMid, corsMid, async (req, res) => {
+Router.get("/api/comment/refidx", dbConnectMid, logMid, corsMid, async (req, res) => {
   var {ref} = req.query;
   var comment = await Comment.findById(ref);
   res.json({refidx: comment.idx});
   return;
 })
 
-Router.post('/api/comment/submit', logMid, corsMid, authCaptchaMid, async (req, res) => {
+Router.post('/api/comment/submit', dbConnectMid, logMid, corsMid, authCaptchaMid, async (req, res) => {
   var {article_title, ref, name, email, content} = req.body;
   if(article_title==undefined || name==undefined || content==undefined){
     res.writeHead(400, {message:"Invalid argument"})

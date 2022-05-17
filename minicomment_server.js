@@ -18,9 +18,12 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use('/', Router);
 
 // start minicomment server
-var PORT = args.port || 3003;
+var PORT = process.env.port
+if(PORT==undefined) PORT = args.port || 3003;
 var server = app.listen(PORT, function () {
     var host = server.address().address;
     var port = server.address().port;
     console.log("comment server at http://%s:%s", host, port);
 })
+
+module.exports = app;

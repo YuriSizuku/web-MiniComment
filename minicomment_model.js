@@ -7,7 +7,6 @@ A Mini Comment web application db model part with mongoose,
 const mongoose = require('mongoose');
 
 // connect to db and set modole
-require('./minicomment_db');
 const commentSchema = new mongoose.Schema({
   article_title: String,
   date: {type:Date, default:new Date()}, //this default is the server start time
